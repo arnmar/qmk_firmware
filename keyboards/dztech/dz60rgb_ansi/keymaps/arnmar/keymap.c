@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "sendstring_swedish.h"
 
 enum dz60rgb_layers {
     _BASE,
