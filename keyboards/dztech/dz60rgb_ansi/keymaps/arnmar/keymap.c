@@ -8,6 +8,27 @@ enum dz60rgb_layers {
     _RGB,
 }; 
 
+enum custom_keycodes {
+  SWE_AA = SAFE_RANGE,
+  SWE_AE,
+  SWE_OE,
+};
+
+char *alt_codes[][2] = {
+    {
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_9)), // Alt+0229 → å
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_7)), // Alt+0197 → Å
+    },
+    {
+		SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_8)), // Alt+0228 → ä
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_6)), // Alt+0196 → Ä
+    },
+    {
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_4)SS_TAP(X_KP_6)), // Alt+0246 → ö
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_1)SS_TAP(X_KP_4)), // Alt+0214 → Ö
+    },
+};
+
 enum {
     TD_SWE1,
     TD_SWE2,
@@ -49,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_HDUE] = LAYOUT_60_ansi(
         _______, _______, _______,   _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   KC_PSCR, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   KC_PSCR, SWE_AA, _______, _______,
         _______, _______, _______,   _______, _______, _______, KC_HOME,   KC_PGDN, KC_PGUP, KC_END,  _______, _______,          _______,
         _______,          _______,   _______, _______, _______, _______, _______, _______, _______,   _______, _______,          _______,
         _______, _______, _______,                              _______,                              _______, _______, _______, _______
@@ -69,3 +90,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______
     )
 }; 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+    if (!record->event.pressed) 
+		return true;
+
+    switch (keycode) {
+		case SWE_AA: 
+		case SWE_AE: 
+		case SWE_OE: {
+			uint16_t index = keycode - SWE_AA;
+			uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+
+			unregister_code(KC_LSFT);
+			unregister_code(KC_RSFT);
+
+			send_string(alt_codes[index][(bool)shift]);
+
+			if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
+			if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
+
+			return false;
+		}
+		default:
+			return true;
+    }
+}
