@@ -12,6 +12,8 @@ enum custom_keycodes {
   SWE_AA = SAFE_RANGE,
   SWE_AE,
   SWE_OE,
+  ARROW,
+  DOUBLE_COLON
 };
 
 char *alt_codes[][2] = {
@@ -20,7 +22,7 @@ char *alt_codes[][2] = {
         SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_7)), // Alt+0197 → Å
     },
     {
-		SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_8)), // Alt+0228 → ä
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_8)), // Alt+0228 → ä
         SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_6)), // Alt+0196 → Ä
     },
     {
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         MO(_RGB), _______, WORD_FW, _______, _______, _______, _______, _______, _______, _______, _______, RALT(KC_W), _______, RESET,
         _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, RALT(KC_O), RALT(KC_A),  _______,
-        _______,          _______, _______, _______, _______, WORD_BK, KC_BSPC, KC_BSPC, KC_DEL, KC_DEL, _______,          _______,
+        _______,          _______, _______, _______, _______, WORD_BK, _______, KC_BSPC,  KC_DEL, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
     [_HDUE] = LAYOUT_60_ansi(
@@ -77,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SYM] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   _______, _______, _______, _______,
-        _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,      KC_7,    KC_8,    KC_9,      KC_0, _______, _______, _______,
+        _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6, DOUBLE_COLON, ARROW,    KC_9,      KC_0, _______, _______, _______,
         _______, KC_LBRC,  S(KC_LBRC), S(KC_9), _______, S(KC_QUOT), S(KC_GRV), KC_ENT, S(KC_0), S(KC_RBRC), KC_RBRC,  S(KC_SCLN), _______,
-        _______,          _______,  _______, _______, _______, _______, _______, _______, _______,   _______, _______,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, KC_BSPC,  KC_DEL, _______, _______,          _______,
         _______, _______, _______,                              _______,                              _______, _______, _______, _______
     ),
     [_RGB] = LAYOUT_60_ansi(
@@ -94,26 +96,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     if (!record->event.pressed) 
-		return true;
+        return true;
 
     switch (keycode) {
-		case SWE_AA: 
-		case SWE_AE: 
-		case SWE_OE: {
-			uint16_t index = keycode - SWE_AA;
-			uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+        case SWE_AA: 
+        case SWE_AE: 
+        case SWE_OE: {
+            uint16_t index = keycode - SWE_AA;
+            uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 
-			unregister_code(KC_LSFT);
-			unregister_code(KC_RSFT);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
 
-			send_string(alt_codes[index][(bool)shift]);
+            send_string(alt_codes[index][(bool)shift]);
 
-			if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-			if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
+            if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
+            if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
 
-			return false;
-		}
-		default:
-			return true;
+            return false;
+        }
+        case DOUBLE_COLON:
+            if (record->event.pressed) {
+                SEND_STRING("::");
+            } else {
+            }
+            break;
+        case ARROW:
+            if (record->event.pressed) {
+                SEND_STRING("->");
+            } else {
+            }
+            break;
     }
+    return true;
 }
