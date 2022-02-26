@@ -47,7 +47,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define WORD_FW C(KC_RIGHT)
 
 #define SPC     LT(_SYM, KC_SPACE)
-#define CAPS    LT(_NAV, KC_ESCAPE)
+#define CAPS    MT(MOD_LCTL, KC_ESC)
 #define TAB     LT(_HDUE, KC_TAB)
 #define KEY_D   LSFT_T(KC_D)
 #define KEY_F   LCTL_T(KC_F)
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   _______, _______, _______, _______,
         _______,  KC_GRV,S(KC_GRV), DOUBLE_COLON, ARROW, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, _______, _______,  _______,
+        _______, _______, _______, KC_BSPC,  KC_ENT, _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, _______, _______,  _______,
         _______,          _______, _______, _______, _______, _______, _______, KC_BSPC,  KC_DEL, _______, _______,          _______,
         _______, _______, _______,                              _______,                              _______, _______, _______, _______
     ),
