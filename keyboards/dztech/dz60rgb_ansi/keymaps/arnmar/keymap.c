@@ -65,14 +65,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI, KC_LALT,                            SPC,                                KC_RALT, MO(_SYM), MO(_RGB), KC_RCTL
     ),
     [_NAV] = LAYOUT_60_ansi(
-        KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-        _______, _______, WORD_FW, _______, _______, _______,  YANK, KC_BSPC,  KC_INS, _______, PASTE, _______, _______, RESET,
-        MO(_RGB), KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, _______, _______,  _______,
+        KC_GESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_DEL,
+        _______, _______, WORD_FW, _______, _______, _______,    YANK, KC_BSPC,  KC_INS, _______,   PASTE, _______, _______,   RESET,
+           CAPS, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT, KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,         _______,
         _______,          _______, _______, _______, _______, WORD_BK, KC_SPACE, KC_DEL, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, DF(_GAME), _______, _______
     ),
     [_SYM] = LAYOUT_60_ansi(
-        KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
+        KC_GESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         _______, KC_GRV,S(KC_GRV), DOUBLE_COLON, ARROW, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, RALT(KC_O), RALT(KC_A),  _______,
         _______,          _______, _______, _______, _______, WORD_BK, _______, KC_BSPC,  KC_DEL, _______, _______,          _______,
