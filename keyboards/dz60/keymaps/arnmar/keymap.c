@@ -7,6 +7,7 @@ enum layers {
     _SYM,
     _RGB,
     _GAME,
+    _NUM,
 }; 
 
 enum custom_keycodes {
@@ -52,6 +53,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SPC     LT(_NAV, KC_SPACE)
 #define CAPS    MT(MOD_LCTL, KC_ESC)
 #define TAB     LT(_HDUE, KC_TAB)
+#define _LGUI   LT(_NUM, KC_LGUI)
 #define KEY_D   LSFT_T(KC_D)
 #define KEY_F   LCTL_T(KC_F)
 #define KEY_J   RCTL_T(KC_J)
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TD(TD_SWE1), KC_RBRC, KC_BSPC,
 		CAPS,             KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD_SWE3), TD(TD_SWE2), KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,              KC_RSFT, MO(_RGB),
-		            KC_LGUI,             KC_LALT,                      SPC,                      KC_RALT,           MO(_SYM)),
+		              _LGUI,             KC_LALT,                      SPC,                      KC_RALT,           MO(_SYM)),
 	[_NAV] = LAYOUT_60_hhkb(
 		KC_GRV, KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,   KC_F12,    KC_INS,   RESET,
         _______, _______, WORD_FW, _______, _______, _______,    YANK,   KC_BSPC,   KC_INS,  _______,    PASTE, _______,  _______,   	KC_DEL,
@@ -83,6 +85,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 	_______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 	 	_______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
 	 	            _______,             _______,                    _______,                    _______,           _______),
+	 [_NUM] = LAYOUT_60_hhkb(
+	 	_______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______, _______, _______,
+	 	_______,          _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, _______,
+	 	_______,          _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______,
+	 	_______,          _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______,          _______, _______,
+	 	            _______,             _______,                    KC_KP_0,                    KC_PDOT,          _______),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
