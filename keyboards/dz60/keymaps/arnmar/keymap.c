@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      // └─────────────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴─────────────┴───────┘
                      _______,  _______,                          KC_KP_0,                          KC_PDOT,  _______
      //             └───────┴───────────┴───────────────────────────────────────────────────────┴───────────┴───────┘
-    ),
-
+    )
 };
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     if (!record->event.pressed)
@@ -157,3 +157,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return true;
 }
+
