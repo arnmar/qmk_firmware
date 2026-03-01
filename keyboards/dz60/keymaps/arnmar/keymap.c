@@ -47,10 +47,13 @@ tap_dance_action_t tap_dance_actions[] = {
 #define CAPS    MT(MOD_LCTL, KC_ESC)
 #define TAB     LT(_HDUE, KC_TAB)
 #define _LGUI   LT(_NUM, KC_LGUI)
+#define KEY_A   LGUI_T(KC_A)
+#define KEY_S   LALT_T(KC_S)
 #define KEY_D   LSFT_T(KC_D)
 #define KEY_F   LCTL_T(KC_F)
 #define KEY_J   RCTL_T(KC_J)
 #define KEY_K   RSFT_T(KC_K)
+#define KEY_L   RALT_T(KC_L)
 #define L_ALT   MT(MOD_LALT, KC_QUOTE)
 
 #define SWE1    TD(TD_SWE1)
@@ -68,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      // ├───────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────────┤
           KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   SWE1,  KC_RBRC,  KC_BSPC,
      // ├─────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬─────────────────┤
-              CAPS,     KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SWE3,   SWE2,       KC_ENT,
+              CAPS,     KEY_A,  KEY_S,   KEY_D,   KEY_F,  KC_G,  KC_H,  KEY_J,  KEY_K,  KEY_L,   SWE3,   SWE2,       KC_ENT,
      // ├─────────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬─────────────┬───────┤
              KC_LSFT,       KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT,    DRGB,
      // └─────────────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴─────────────┴───────┘
