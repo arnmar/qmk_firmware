@@ -1,70 +1,5 @@
 #include QMK_KEYBOARD_H
-
-enum layers {
-    _BASE,
-    _NAV,
-    _HDUE,
-    _SYM,
-    _RGB,
-    _GAME,
-    _NUM,
-};
-
-enum custom_keycodes {
-  SWE_AA = SAFE_RANGE,
-  SWE_AE,
-  SWE_OE,
-  ARROW,
-  D_COLON
-};
-
-char *alt_codes[][2] = {
-    {
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_9)), // Alt+0229 → å
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_7)), // Alt+0197 → Å
-    },
-    {
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_8)), // Alt+0228 → ä
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_6)), // Alt+0196 → Ä
-    },
-    {
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_4)SS_TAP(X_KP_6)), // Alt+0246 → ö
-        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_1)SS_TAP(X_KP_4)), // Alt+0214 → Ö
-    },
-};
-
-enum {
-    TD_SWE1,
-    TD_SWE2,
-    TD_SWE3
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_SWE1] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, RALT(KC_W)), // å
-    [TD_SWE2] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, RALT(KC_A)), // ä
-    [TD_SWE3] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, RALT(KC_O))  // ö
-};
-
-#define WORD_BK C(KC_LEFT)
-#define WORD_FW C(KC_RIGHT)
-#define YANK C(KC_INS)
-#define PASTE S(KC_INS)
-
-#define SPC     LT(_NAV, KC_SPACE)
-#define CAPS    MT(MOD_LCTL, KC_ESC)
-#define TAB     LT(_HDUE, KC_TAB)
-#define _LGUI   LT(_NUM, KC_LGUI)
-#define KEY_D   LSFT_T(KC_D)
-#define KEY_F   LCTL_T(KC_F)
-#define KEY_J   RCTL_T(KC_J)
-#define KEY_K   RSFT_T(KC_K)
-#define L_ALT   MT(MOD_LALT, KC_QUOTE)
-#define SWE1    TD(TD_SWE1)
-#define SWE2    TD(TD_SWE2)
-#define SWE3    TD(TD_SWE3)
-#define DSYM    MO(_SYM)
-#define DRGB    MO(_RGB)
-#define DNAV    MO(_NAV)
+#include "arnmar.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_60_hhkb(
@@ -75,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // ├─────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬─────────────────┤
                 CAPS,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    SWE3,  SWE2,       KC_ENT,
         // ├───────────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────────────────┤
-                KC_LSFT,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,  KC_COMM,KC_DOT,KC_SLSH,   KC_RSFT, DRGB,
+                KC_LSFT,         K_Z,     K_X,    K_C,    K_V,   KC_B,   KC_N,    K_M,   K_COMM, K_DOT, KC_SLSH,   KC_RSFT, DRGB,
         // ├───────────┬───────────────┬───────────────────────────────────────────────────────┬───────────┬───────────────────────┤
                 KC_LGUI,    KC_LALT,                          SPC,                              KC_RALT,            DSYM),
         // └───────────┴───────────────┴───────────────────────────────────────────────────────┴───────────┴───────────────────────┘
@@ -139,23 +74,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         return true;
 
     switch (keycode) {
-        case SWE_AA:
-        case SWE_AE:
-        case SWE_OE: {
-            uint16_t index = keycode - SWE_AA;
-            uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
-
-            unregister_code(KC_LSFT);
-            unregister_code(KC_RSFT);
-
-            SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_9)));
-            send_string(alt_codes[index][(bool)shift]);
-
-            if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-            if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
-
-            return false;
-        }
         case D_COLON:
             if (record->event.pressed) {
                 SEND_STRING("::");
