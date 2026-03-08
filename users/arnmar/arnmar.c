@@ -21,18 +21,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
     switch (keycode) {
         case D_COLON:
-            if (record->event.pressed) {
-                SEND_STRING("::");
-            }
-            else {
-            }
+            SEND_STRING("::");
             break;
         case ARROW:
-            if (record->event.pressed) {
-                SEND_STRING("->");
-            }
-            else {
-            }
+            SEND_STRING("->");
+            break;
+        case M_DQUOT:
+            SEND_STRING("\"\"");
+            tap_code(KC_LEFT);
+            break;
+        case M_BRACK:
+            SEND_STRING("[]");
+            tap_code(KC_LEFT);
+            break;
+        case M_CBRAC:
+            SEND_STRING("{}");
+            tap_code(KC_LEFT);
+            break;
+        case M_PAREN:
+            SEND_STRING("()");
+            tap_code(KC_LEFT);
             break;
     }
     return true;

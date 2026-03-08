@@ -12,8 +12,12 @@ enum layers {
 };
 
 enum custom_keycodes {
-  ARROW = SAFE_RANGE,
-  D_COLON
+    ARROW = SAFE_RANGE,
+    D_COLON,
+    M_DQUOT, // ""|  (auto-pair)
+    M_BRACK, // []|  (auto-pair)
+    M_CBRAC, // {}|  (auto-pair)
+    M_PAREN  // ()|  (auto-pair)
 };
 
 const uint16_t PROGMEM kl_ent[] = {KC_K, KC_L, COMBO_END};
@@ -53,6 +57,7 @@ enum {
 #define K_COMM  RSFT_T(KC_COMM)
 #define K_DOT   RALT_T(KC_DOT)
 #define L_ALT   MT(MOD_LALT, KC_QUOTE)
+#define K_SLSH  LT(_SYM, KC_SLSH)
 #define SWE1    TD(TD_SWE1)
 #define SWE2    TD(TD_SWE2)
 #define SWE3    TD(TD_SWE3)
