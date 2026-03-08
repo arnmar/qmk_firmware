@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      // ├─────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬─────────────────┤
               CAPS,      KC_A,   KC_S,   KC_D,  KC_F,    KC_G,  KC_H,   KC_J,   KC_K,    KC_L,   SWE3,   SWE2,       KC_ENT,
      // ├─────────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬─────────────┬───────┤
-             KC_LSFT,       K_Z,    K_X,     K_C,    K_V,   KC_B,   KC_N,    K_M ,  K_COMM,K_DOT,  KC_SLSH,   KC_RSFT,    DRGB,
+             KC_LSFT,       K_Z,    K_X,     K_C,    K_V,   KC_B,   KC_N,    K_M ,  K_COMM, K_DOT, KC_SLSH,   KC_RSFT,    DRGB,
      // └─────────────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴─────────────┴───────┘
                      KC_LGUI,  KC_LALT,                            SPC,                           KC_RALT,    DSYM
      //             └───────┴───────────┴───────────────────────────────────────────────────────┴───────────┴───────┘
@@ -73,26 +73,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //             └───────┴───────────┴───────────────────────────────────────────────────────┴───────────┴───────┘
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    if (!record->event.pressed)
-        return true;
-
-    switch (keycode) {
-        case D_COLON:
-            if (record->event.pressed) {
-                SEND_STRING("::");
-            } else {
-            }
-            break;
-        case ARROW:
-            if (record->event.pressed) {
-                SEND_STRING("->");
-            } else {
-            }
-            break;
-    }
-    return true;
-}
 

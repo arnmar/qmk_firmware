@@ -67,25 +67,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,    _______,                          KC_KP_0,                          KC_PDOT,       _______),
         // └───────────┴───────────────┴───────────────────────────────────────────────────────┴───────────┴───────────────────────┘
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    if (!record->event.pressed)
-        return true;
-
-    switch (keycode) {
-        case D_COLON:
-            if (record->event.pressed) {
-                SEND_STRING("::");
-            } else {
-            }
-            break;
-        case ARROW:
-            if (record->event.pressed) {
-                SEND_STRING("->");
-            } else {
-            }
-            break;
-    }
-    return true;
-}
