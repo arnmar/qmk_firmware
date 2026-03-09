@@ -49,7 +49,7 @@ enum {
 #define K_K     RSFT_T(KC_K)
 #define K_L     RALT_T(KC_L)
 // Bottom row mods
-#define K_Z     LGUI_T(KC_Z)
+#define K_Z     LT(_SYM, KC_Z)
 #define K_X     LALT_T(KC_X)
 #define K_C     LSFT_T(KC_C)
 #define K_V     LCTL_T(KC_V)
